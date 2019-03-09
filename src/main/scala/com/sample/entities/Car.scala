@@ -1,4 +1,4 @@
-package com.trovit.entities
+package com.sample.entities
 
 //TODO: Add numeric correct formats in struct
 case class Car(carType: Option[String],

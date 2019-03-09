@@ -1,4 +1,4 @@
-package com.trovit.job
+package com.sample.job
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkConf

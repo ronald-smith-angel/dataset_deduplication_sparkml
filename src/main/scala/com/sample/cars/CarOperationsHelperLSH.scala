@@ -1,4 +1,4 @@
-package com.trovit.cars
+package com.sample.cars
 
 import org.apache.spark.ml.feature.{CountVectorizerModel, MinHashLSHModel, _}
 import org.apache.spark.ml.linalg.{Vector, Vectors}

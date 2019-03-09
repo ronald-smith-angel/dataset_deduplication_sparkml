@@ -1,6 +1,6 @@
-package com.trovit.cars
+package com.sample.cars
 
-import com.trovit.utils.OperationsHelper
+import com.sample.utils.OperationsHelper
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.functions.{levenshtein, _}

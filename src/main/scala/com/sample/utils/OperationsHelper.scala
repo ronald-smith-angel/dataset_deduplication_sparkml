@@ -1,4 +1,4 @@
-package com.trovit.utils
+package com.sample.utils
 
 import org.apache.spark.sql.DataFrame
 

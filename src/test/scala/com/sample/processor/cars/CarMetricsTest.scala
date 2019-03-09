@@ -1,8 +1,8 @@
-package com.trovit.processor.cars
+package com.sample.processor.cars
 
 import java.sql.Date
 
-import com.trovit.general.SparkSpec
+import com.sample.general.SparkSpec
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, GivenWhenThen, Matchers}

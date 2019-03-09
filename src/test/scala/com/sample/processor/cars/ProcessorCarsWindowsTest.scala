@@ -1,8 +1,8 @@
-package com.trovit.processor.cars
+package com.sample.processor.cars
 
-import com.trovit.cars.CarOperationsHelperWindowStrategy
-import com.trovit.entities.Car
-import com.trovit.general.SparkSpec
+import com.sample.cars.CarOperationsHelperWindowStrategy
+import com.sample.entities.Car
+import com.sample.general.SparkSpec
 import org.apache.spark.sql.functions.{col, round}
 import org.apache.spark.sql.{Column, DataFrame}
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, GivenWhenThen, Matchers}
