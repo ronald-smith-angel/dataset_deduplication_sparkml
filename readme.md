@@ -1,6 +1,6 @@
-# README #
+# Spark Data #
 
-This project shows a data set processing example.
+This project shows a dataset deduplication process using spark and Scala.
 
 ### Deduplicate Data Frame ###
 
@@ -9,28 +9,22 @@ However, modify them for a real example is a matter of use the complete set of f
 
 ### Locality-sensitive hashing (LSH) ###
 
-This strategy creates a column concatenating the principal component fields (PCA).
+This strategy creates a column concatenating the principal component fields (PCA). For this test there is an assumption in order to reduce complexity and have a result in short time.
 
 https://spark.apache.org/docs/2.2.0/mllib-dimensionality-reduction.html
 
-
-For this (could be improved) test there is an assumption:
-
-In order to reduce complexity and have a result in short time (we could add more fields and hashes in a big cluster).
-
-those fields are:
+Thus, those fields are:
 
   * titleChunk
   * contentChunk
   * color
   * carType
 
-Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the LSH algorithm. This creates hashes and buckets.
-Thus, using KNN we can query similar hashes for a category.
+Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the LSH algorithm. This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
 
 * Pros:
 
-    - Accurate: If used the complete set of fields and a correct value for hashes and neighbors could detect almost all the repeated values.
+    - Accurate: If a complete set of fields (representating the striing) is used, the correct value for hashes and neighbors could detect almost all the repeated values.
     - Faster: compared with other ML strategies as Tfi, etc.
 
 * Cons :
@@ -57,14 +51,14 @@ To run an example: Go to the test ```com.trovit.processor.cars.ProcessorCarsLshT
 
 This strategy uses spark windows operations over a multiHashing strategy. Steps:
 
-  * Create a hash using some first level category field. This will be helpful for the partitioning of the data in nodes (This strategy could improved ). For the example, these fields are:
+  * Create a hash using some first level category field. This will be helpful for the partitioning of the data in nodes. For the example, these fields are:
        * carType
        * city
        * country
        * region
        * year
        * transmission
-    Note: the "date" field helps to order and get only the most recent .
+    Note: the "date" field helps to order and get only the most recent.
   * With this window, creates a second hash using extra cleaned parameters (after processing) a creates second window. The fields are:
        * doors
        * fuel
