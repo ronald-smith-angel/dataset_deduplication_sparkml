@@ -1,4 +1,4 @@
-# Spark Data #
+# Spark Data Deduplication #
 
 This project shows a dataset deduplication process using spark and Scala.
 
