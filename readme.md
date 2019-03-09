@@ -33,7 +33,7 @@ Therefore, it uses a tokenizer (with word stopper - see code) to get the vector 
     - Need a process for data cleaning.
 
 
-To run an example: Go to the test ```com.trovit.processor.cars.ProcessorCarsLshTest``` and you will see a complete flow running.
+To run an example: Go to the test ```com.sample.processor.cars.ProcessorCarsLshTest``` and you will see a complete flow running.
 
 * Input Params:
 
@@ -74,7 +74,7 @@ This strategy uses spark windows operations over a multiHashing strategy. Steps:
   * Finally the values with the same hashes and rank only change the rownum. Filtering rownum == 1 is possible to get
   the deduplicate Data set.
 
-To run an example: Go to the test ```com.trovit.processor.cars.ProcessorCarsWindowsTest``` and you will see a complete flow running.
+To run an example: Go to the test ```com.sample.processor.cars.ProcessorCarsWindowsTest``` and you will see a complete flow running.
 
 * Input Params: levenshteinThreshold --> 6
 
@@ -97,7 +97,7 @@ The results is deduplicate after filtering rn == 1. This removes > 1/3 of the da
 
 Regarding the metrics a subset of the fields and an example found in this test are used:
 
-```com.trovit.processor.cars.CarMetricsTest```
+```com.sample.processor.cars.CarMetricsTest```
 
 an example of the input calculating data for each car in a hash category that is generated for some key fields.
 Those key field represent filters done by an user in the platform. Example:
