@@ -94,14 +94,13 @@ The results is deduplicate after filtering rn == 1. This removes > 1/3 of the da
 
     - Could have much more false positives.
 
-### Calculating Metrics ###
+### BONUS: Calculating Metrics ###
 
-Regarding the metrics a subset of the fields and an example found in this test are used:
+After, we have a dedupliacted dataset we can safely calculate some metrics. Therefore, we will continue using [Windows function](https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html) to get some metrics for the cars dataset. A subset of the fields and an example are found here:
 
 ```com.sample.processor.cars.CarMetricsTest```
 
-an example of the input calculating data for each car in a hash category that is generated for some key fields.
-Those key field represent filters done by an user in the platform. Example:
+An hardcode input hash category (see explantion above) is generated for some key fields [PCA] . Those key field represent filters done by an user in the platform. Example:
 
 HashKey = concat(carType,city,country,region,transmission)
 
@@ -109,7 +108,7 @@ The input example is:
 
 ![alt text](metricsI.PNG)
 
-The calculated fields are shown in this part of the code:
+Then, some metrics are calculated here:
 ```
 
     val windowCarsKeyHash = Window.partitionBy(col("hashCategory"))
