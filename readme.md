@@ -1,17 +1,15 @@
 # Spark Data Deduplication #
 
-This project shows a dataset deduplication process using spark and Scala.
+This project shows a dataset deduplication process using spark and Scala. A deduplication process is worth in cases where having duplicates affects either a distribuited system performance or a business metrics. Thus, this a basic example using a cars dataset having similar descriptions strings, the pipeline looks for similar rows and flag/remove those that represent the same record. 
 
 ### Deduplicate Data Frame ###
 
 For this example a couple of strategies are used. Both of them reduce the space of the problem by some assumptions.
-However, modify them for a real example is a matter of use the complete set of fields.
+However, modify them for a real example is a matter of using the complete set of fields.
 
 ### Locality-sensitive hashing (LSH) ###
 
-This strategy creates a column concatenating the principal component fields (PCA). For this test there is an assumption in order to reduce complexity and have a result in short time.
-
-https://spark.apache.org/docs/2.2.0/mllib-dimensionality-reduction.html
+This strategy creates a column concatenating the principal component fields [PCA](https://spark.apache.org/docs/2.2.0/mllib-dimensionality-reduction.html). For this test there is an assumption: the listed fields below are the PCA, this reduces complexity and gives a result in shorter time.
 
 Thus, those fields are:
 
@@ -20,12 +18,14 @@ Thus, those fields are:
   * color
   * carType
 
-Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the LSH algorithm. This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
+Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the [LSH algorithm](https://spark.apache.org/docs/2.1.0/ml-features.html#locality-sensitive-hashing). This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
+
+
 
 * Pros:
 
     - Accurate: If a complete set of fields (representating the striing) is used, the correct value for hashes and neighbors could detect almost all the repeated values.
-    - Faster: compared with other ML strategies as Tfi, etc.
+    - Faster: compared with other ML strategies as tfi, etc.
 
 * Cons :
 
@@ -33,7 +33,7 @@ Therefore, it uses a tokenizer (with word stopper - see code) to get the vector 
     - Need a process for data cleaning.
 
 
-To run an example: Go to the test ```com.trovit.processor.cars.ProcessorCarsLshTest``` and you will see a complete flow running.
+To run an example: Go to the test ```com.sample.processor.cars.ProcessorCarsLshTest``` and you will see a complete flow running.
 
 * Input Params:
 
@@ -68,13 +68,14 @@ This strategy uses spark windows operations over a multiHashing strategy. Steps:
        * color
        * price
     Note: the "date" field helps to order and get only the most recent .
-  * For each group applies levenshtein (string difference only in the second window) over the concatenated fields that changes the most and rank the window:
+  * For each group applies [levenshtein](https://medium.com/@mrpowers/fuzzy-matching-in-spark-with-soundex-and-levenshtein-distance-6749f5af8f28) (string difference only in the second window) over the concatenated fields that changes the most and rank the window:
      * titleChunk
      * contentChunk
+   
   * Finally the values with the same hashes and rank only change the rownum. Filtering rownum == 1 is possible to get
   the deduplicate Data set.
 
-To run an example: Go to the test ```com.trovit.processor.cars.ProcessorCarsWindowsTest``` and you will see a complete flow running.
+To run an example: Go to the test ```com.sample.processor.cars.ProcessorCarsWindowsTest``` and you will see a complete flow running.
 
 * Input Params: levenshteinThreshold --> 6
 
@@ -93,14 +94,13 @@ The results is deduplicate after filtering rn == 1. This removes > 1/3 of the da
 
     - Could have much more false positives.
 
-### Calculating Metrics ###
+### BONUS: Calculating Metrics ###
 
-Regarding the metrics a subset of the fields and an example found in this test are used:
+After, we have a dedupliacted dataset we can safely calculate some metrics. Therefore, we will continue using [Windows function](https://databricks.com/blog/2015/07/15/introducing-window-functions-in-spark-sql.html) to get some metrics for the cars dataset. A subset of the fields and an example are found here:
 
-```com.trovit.processor.cars.CarMetricsTest```
+```com.sample.processor.cars.CarMetricsTest```
 
-an example of the input calculating data for each car in a hash category that is generated for some key fields.
-Those key field represent filters done by an user in the platform. Example:
+An hardcode input hash category (see explantion above) is generated for some key fields [PCA] . Those key field represent filters done by an user in the platform. Example:
 
 HashKey = concat(carType,city,country,region,transmission)
 
@@ -108,7 +108,7 @@ The input example is:
 
 ![alt text](metricsI.PNG)
 
-The calculated fields are shown in this part of the code:
+Then, some metrics are calculated here:
 ```
 
     val windowCarsKeyHash = Window.partitionBy(col("hashCategory"))
