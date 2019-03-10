@@ -156,5 +156,6 @@ This architecture is shown in the following diagram:
 
 
 
+In future work this pipeline will be productionized using docker and deployed in an EMR cluster. 
 
 
