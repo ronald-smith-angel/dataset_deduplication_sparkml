@@ -20,8 +20,6 @@ Thus, those fields are:
 
 Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the [LSH algorithm](https://spark.apache.org/docs/2.1.0/ml-features.html#locality-sensitive-hashing). This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
 
-
-
 * Pros:
 
     - Accurate: If a complete set of fields (representating the striing) is used, the correct value for hashes and neighbors could detect almost all the repeated values.
