@@ -1,6 +1,6 @@
 # Spark Data Deduplication #
 
-This project shows a dataset deduplication process using spark and Scala.
+This project shows a dataset deduplication process using spark and Scala. A deduplication process is worth in cases where having deuplicates affects either a distribuited system performance or your business metrics. Thus, this a basic example using a cars dataset having similar descriptions a fields, then the pipeline looks for similar rows and flag/remove those that represent the same record. 
 
 ### Deduplicate Data Frame ###
 
