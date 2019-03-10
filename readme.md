@@ -18,7 +18,7 @@ Thus, those fields are:
   * color
   * carType
 
-Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the [LSH algorithm] (https://spark.apache.org/docs/2.1.0/ml-features.html#locality-sensitive-hashing). This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
+Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the [LSH algorithm](https://spark.apache.org/docs/2.1.0/ml-features.html#locality-sensitive-hashing). This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
 
 
 
