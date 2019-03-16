@@ -1,28 +1,26 @@
-package com.sample.processor.cars
+package com.sample.processor.products
 
-import com.sample.cars.CarOperationsHelperWindowStrategy
-import com.sample.entities.Car
+import com.sample.entities.Product
 import com.sample.general.SparkSpec
+import com.sample.products.OperationsHelperWindowStrategy
 import org.apache.spark.sql.functions.{col, round}
 import org.apache.spark.sql.{Column, DataFrame}
 import org.scalatest.{BeforeAndAfterEach, FlatSpec, GivenWhenThen, Matchers}
 
-class ProcessorCarsWindowsTest extends FlatSpec with SparkSpec with GivenWhenThen with Matchers with BeforeAndAfterEach {
+class ProcessorProductsWindowsTest extends FlatSpec with SparkSpec with GivenWhenThen with Matchers with BeforeAndAfterEach {
 
-  var carDataSet: DataFrame = _
+  var productsDataSet: DataFrame = _
   var hashKeyColumns: Seq[Column] = _
   var categoryKeyColumns: Seq[Column] = _
-  var dsHelper: CarOperationsHelperWindowStrategy = _
+  var dsHelper: OperationsHelperWindowStrategy = _
 
   override def beforeEach(): Unit = {
     val spark = ss
 
-    carDataSet.write.option("compression", "gzip").json("./sample/")
-
-    print(carDataSet.count())
+    productsDataSet.write.option("compression", "gzip").json("./sample/")
 
     hashKeyColumns = Seq(
-      col("carType"),
+      col("productType"),
       col("city"),
       col("country"),
       col("region"),
@@ -40,7 +38,8 @@ class ProcessorCarsWindowsTest extends FlatSpec with SparkSpec with GivenWhenThe
       round(col("price")
       ))
 
-    dsHelper = new CarOperationsHelperWindowStrategy(carDataSet,
+    /** Using Distance 6 for this example */
+    dsHelper = new OperationsHelperWindowStrategy(productsDataSet,
       hashKeyColumns, categoryKeyColumns,
       ("titleChunk", "contentChunk"),
       6)
@@ -54,7 +53,7 @@ class ProcessorCarsWindowsTest extends FlatSpec with SparkSpec with GivenWhenThe
     val spark = ss
     import spark.implicits._
 
-    carDataSet.show(false)
+    productsDataSet.show(false)
 
     val deduplicateDF = dsHelper.ds.transform(dsHelper.preparedDataSet())
       .transform(dsHelper.deduplicateDataSet())
@@ -62,13 +61,13 @@ class ProcessorCarsWindowsTest extends FlatSpec with SparkSpec with GivenWhenThe
 
     deduplicateDF.cache()
 
-    deduplicateDF.as[Car].show(false)
+    deduplicateDF.as[Product].show(false)
 
-    val initCarsCount = carDataSet.count()
+    val initProductsCount = productsDataSet.count()
     val deduplicateCount = deduplicateDF.count()
 
-    val removedMetric = initCarsCount - deduplicateCount
+    val removedMetric = initProductsCount - deduplicateCount
 
-    assert(removedMetric > (initCarsCount / 3))
+    assert(removedMetric > (initProductsCount / 3))
   }
 }

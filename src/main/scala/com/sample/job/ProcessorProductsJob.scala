@@ -5,21 +5,21 @@ import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
 
-class ProcessorCarsJob {
+class ProcessorProductsJob {
 
 }
 
-object ProcessorCarsJob {
+object ProcessorProductsJob {
 
   def main(args: Array[String]): Unit = {
 
-    //TODO: Exceptions handling with Try and Options.
-    //TODO:
-    val pathCarsFile = args(0)
+    //TODO: Add Exception handling for a production environment.
+
+    val pathProductsFile = args(0)
     val pathHdfsOutput = args(1)
 
     val master = "local[*]"
-    val appName = "cars-processor-spark"
+    val appName = "products-processor-spark"
 
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
@@ -35,6 +35,7 @@ object ProcessorCarsJob {
       .getOrCreate()
 
 
+    //TODO: Productionize this job. For now go to the test cases.
   }
 
 }
