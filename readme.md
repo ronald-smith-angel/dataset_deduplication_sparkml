@@ -162,15 +162,6 @@ Therefore, we have a dataframe useful to show some time series with avg prices a
 data base like Influx or elasticsearch for faster and easier lookups from a framework like tableau, etc. This metric will be shown to an user
 in real time while he is looking for products in a category. Example: Difference of price for products vs the rest in category.
 
-Other databases could be taken into consideration: Cassandra, mongo, redis, etc.
-
-
-This architecture is shown in the following diagram:
-
-![alt text](architecture.png)
-
-
-
-In future work this pipeline will be productionized using docker and deployed in an EMR cluster. 
+Other databases could be taken into consideration: Cassandra, mongo, redis, etc. As future work this pipeline will be productionized using docker and deployed in an EMR cluster. 
 
 
