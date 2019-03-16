@@ -1,6 +1,6 @@
 # Spark Data Deduplication #
 
-This project shows a dataset deduplication process using spark and Scala. A deduplication process is worth in cases where having duplicates affects either a distribuited system performance or a business metrics. Thus, this a basic example using a cars dataset having similar descriptions strings, the pipeline looks for similar rows and flag/remove those that represent the same record. 
+This project shows a dataset deduplication process using spark and Scala. A deduplication process is worth in cases where having duplicates affects either a distribuited system performance or a business metrics. Thus, this a basic example using a products dataset having similar descriptions strings, the pipeline looks for similar rows and flag/remove those that represent the same record. 
 
 ### Deduplicate Data Frame ###
 
@@ -16,7 +16,7 @@ Thus, those fields are:
   * titleChunk
   * contentChunk
   * color
-  * carType
+  * productType
 
 Therefore, it uses a tokenizer (with word stopper - see code) to get the vector for the [LSH algorithm](https://spark.apache.org/docs/2.1.0/ml-features.html#locality-sensitive-hashing). This creates hashes and buckets. Finally, using KNN we can query similar hashes for a category.
 
