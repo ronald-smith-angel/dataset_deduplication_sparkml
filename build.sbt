@@ -1,4 +1,4 @@
-name := "processorCarsDataset"
+name := "processorProductsDataset"
 
 
 scalaVersion := "2.12.6"
